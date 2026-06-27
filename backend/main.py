@@ -213,7 +213,7 @@ class VideoEngine:
             # YOLO processing directly on the raw frame for maximum accuracy
             # YOLO processing directly on the raw frame for maximum accuracy
             # We use a massive 1088 inference size universally to capture people in the back of the crowd
-            results = model_yolo.track(frame, persist=True, classes=[0], verbose=False, conf=self.yolo_conf, iou=0.3, imgsz=1088)
+            results = model_yolo.track(frame, persist=True, classes=[0], verbose=False, conf=self.yolo_conf, iou=0.3)
             sfh, sfw = fh, fw
             boxes_data  = []
             yolo_counts = {z: 0 for z in ZONES}
@@ -302,7 +302,10 @@ class VideoEngine:
             self.prev_gray = curr_gray
             
             for z in ZONES:
-                self.ema_pressure[z] = 0.35*pressure[z] + 0.65*self.ema_pressure[z]
+                if zone_counts[z] < 3:
+                    self.ema_pressure[z] = 0.0
+                else:
+                    self.ema_pressure[z] = 0.35*pressure[z] + 0.65*self.ema_pressure[z]
 
             # Risk calculation
             flow_data, alerts = {}, []

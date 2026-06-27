@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Activity, Video, Map as MapIcon, AlertTriangle, Settings, Bell } from 'lucide-react';
+import { Activity, Video, Map as MapIcon, AlertTriangle, Settings, Bell, Signpost } from 'lucide-react';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
 import CCTVMonitor from './components/CCTVMonitor';
 import DensityHeatmap from './components/DensityHeatmap';
 import EmergencyAlertCenter from './components/EmergencyAlertCenter';
+import EvacuationPlan from './components/EvacuationPlan';
 
 const NAV = [
-  { path: '/',        name: 'Analytics Dashboard', icon: <Activity size={20} /> },
-  { path: '/cctv',   name: 'CCTV AI Monitor',      icon: <Video size={20} /> },
-  { path: '/heatmap',name: 'Density Heatmap',       icon: <MapIcon size={20} /> },
-  { path: '/alerts', name: 'Emergency Alerts',      icon: <AlertTriangle size={20} /> },
+  { path: '/',          name: 'Analytics Dashboard', icon: <Activity size={20} /> },
+  { path: '/cctv',      name: 'CCTV AI Monitor',     icon: <Video size={20} /> },
+  { path: '/heatmap',   name: 'Density Heatmap',     icon: <MapIcon size={20} /> },
+  { path: '/alerts',    name: 'Emergency Alerts',    icon: <AlertTriangle size={20} /> },
+  { path: '/evacuation',name: 'Evacuation Routes',   icon: <Signpost size={20} /> },
 ];
 
 function Sidebar({ alertCount }) {
@@ -129,10 +131,11 @@ function App() {
           <TopHeader alertCount={data.alerts?.length || 0} wsStatus={wsStatus} clock={clock} />
           <main style={{ flex: 1, overflow: 'auto', padding: 24 }}>
             <Routes>
-              <Route path="/"        element={<AnalyticsDashboard   data={data} />} />
-              <Route path="/cctv"    element={<CCTVMonitor          data={data} />} />
-              <Route path="/heatmap" element={<DensityHeatmap       data={data} />} />
-              <Route path="/alerts"  element={<EmergencyAlertCenter data={data} />} />
+              <Route path="/"           element={<AnalyticsDashboard   data={data} />} />
+              <Route path="/cctv"       element={<CCTVMonitor          data={data} />} />
+              <Route path="/heatmap"    element={<DensityHeatmap       data={data} />} />
+              <Route path="/alerts"     element={<EmergencyAlertCenter data={data} />} />
+              <Route path="/evacuation" element={<EvacuationPlan       data={data} />} />
             </Routes>
           </main>
         </div>
