@@ -1,6 +1,9 @@
 # 🚦 CrowdFlow AI
 
 <div align="center">
+
+[![CI Build](https://github.com/Ameyghugarkar/CrowdFlow-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/Ameyghugarkar/CrowdFlow-AI/actions/workflows/ci.yml)
+
   <p><strong>A Real-Time Public Safety & Crowd Density Analytics Platform</strong></p>
 </div>
 
