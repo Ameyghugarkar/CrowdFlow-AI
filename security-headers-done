@@ -1,0 +1,18 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.2.0, pluggy-1.7.0
+rootdir: C:\Users\Amey\CrowdFlow AI
+plugins: anyio-4.12.1
+collecting ... collected 8 items
+
+service/tests/test_accounts.py::TestAccountService::test_cors_headers_present PASSED [ 12%]
+service/tests/test_accounts.py::TestAccountService::test_create_account PASSED [ 25%]
+service/tests/test_accounts.py::TestAccountService::test_create_account_missing_fields PASSED [ 37%]
+service/tests/test_accounts.py::TestAccountService::test_delete_account PASSED [ 50%]
+service/tests/test_accounts.py::TestAccountService::test_list_accounts PASSED [ 62%]
+service/tests/test_accounts.py::TestAccountService::test_read_account PASSED [ 75%]
+service/tests/test_accounts.py::TestAccountService::test_read_account_not_found PASSED [ 87%]
+service/tests/test_accounts.py::TestAccountService::test_update_account PASSED [100%]
+
+============================== warnings summary ===============================
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 8 passed, 1 warning in 0.18s =========================
