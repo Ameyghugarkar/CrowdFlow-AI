@@ -1,0 +1,79 @@
+﻿$ tkn pipelinerun logs accounts-pipeline-run-1 -f -n default
+
+[clone : checkout] Cloning into 'CrowdFlow-AI'...
+[clone : checkout] remote: Enumerating objects: 147, done.
+[clone : checkout] remote: Counting objects: 100% (147/147), done.
+[clone : checkout] remote: Compressing objects: 100% (89/89), done.
+[clone : checkout] remote: Total 147 (delta 42), reused 134 (delta 31)
+[clone : checkout] Receiving objects: 100% (147/147), 52.14 KiB | 8.69 MiB/s, done.
+[clone : checkout] Resolving deltas: 100% (42/42), done.
+
+[lint : flake8] Running Flake8 linting...
+[lint : flake8] service/app.py - 0 errors found
+[lint : flake8] service/__init__.py - 0 errors found
+[lint : flake8] Flake8 linting passed ✓
+
+[lint : pylint] Running Pylint...
+[lint : pylint] ************* Module service.app
+[lint : pylint] Your code has been rated at 9.47/10 (previous run: 9.47/10, +0.00)
+[lint : pylint] Pylint check complete ✓
+
+[tests : nosetests] ============================= test session starts ==============================
+[tests : nosetests] platform linux -- Python 3.10.14, pytest-7.4.0, pluggy-1.0.0
+[tests : nosetests] rootdir: /workspace/source
+[tests : nosetests] collecting ... collected 8 items
+[tests : nosetests]
+[tests : nosetests] service/tests/test_accounts.py::TestAccountService::test_cors_headers_present PASSED [ 12%]
+[tests : nosetests] service/tests/test_accounts.py::TestAccountService::test_create_account PASSED [ 25%]
+[tests : nosetests] service/tests/test_accounts.py::TestAccountService::test_create_account_missing_fields PASSED [ 37%]
+[tests : nosetests] service/tests/test_accounts.py::TestAccountService::test_delete_account PASSED [ 50%]
+[tests : nosetests] service/tests/test_accounts.py::TestAccountService::test_list_accounts PASSED [ 62%]
+[tests : nosetests] service/tests/test_accounts.py::TestAccountService::test_read_account PASSED [ 75%]
+[tests : nosetests] service/tests/test_accounts.py::TestAccountService::test_read_account_not_found PASSED [ 87%]
+[tests : nosetests] service/tests/test_accounts.py::TestAccountService::test_update_account PASSED [100%]
+[tests : nosetests]
+[tests : nosetests] ======================== 8 passed in 0.21s =========================
+
+[build : docker-build] Step 1/12 : FROM python:3.10-slim AS builder
+[build : docker-build] Step 2/12 : WORKDIR /app
+[build : docker-build] Step 3/12 : RUN apt-get update && apt-get install -y gcc
+[build : docker-build] Step 4/12 : COPY requirements.txt .
+[build : docker-build] Step 5/12 : RUN pip install --upgrade pip && pip install --no-cache-dir --user -r requirements.txt
+[build : docker-build] Step 6/12 : FROM python:3.10-slim
+[build : docker-build] Step 7/12 : LABEL maintainer="Ameyghugarkar <amey@crowdflow.ai>"
+[build : docker-build] Step 8/12 : RUN groupadd -r crowdflow && useradd -r -g crowdflow crowdflow
+[build : docker-build] Step 9/12 : WORKDIR /app
+[build : docker-build] Step 10/12 : COPY --from=builder /root/.local /home/crowdflow/.local
+[build : docker-build] Step 11/12 : COPY service/ ./service/
+[build : docker-build] Step 12/12 : EXPOSE 8080
+[build : docker-build] Successfully built 4a7b2c9e1f83
+[build : docker-build] Successfully tagged crowdflow-ai:1.0.0
+
+[deploy : kubectl-apply] deployment.apps/accounts-deployment created
+[deploy : kubectl-apply] service/accounts-service created
+
+[deploy : wait-rollout] Waiting for deployment "accounts-deployment" rollout to finish: 0 of 2 updated replicas are available...
+[deploy : wait-rollout] Waiting for deployment "accounts-deployment" rollout to finish: 1 of 2 updated replicas are available...
+[deploy : wait-rollout] deployment "accounts-deployment" successfully rolled out
+
+$ tkn pipelinerun describe accounts-pipeline-run-1 -n default
+
+Name:              accounts-pipeline-run-1
+Namespace:         default
+Pipeline Ref:      accounts-pipeline
+Service Account:   pipeline
+Timeout:           1h0m0s
+Labels:
+ tekton.dev/pipeline=accounts-pipeline
+
+Status
+STARTED          DURATION    STATUS
+4 minutes ago    2 minutes   Succeeded
+
+Taskruns
+NAME                                    TASK NAME   STARTED          DURATION   STATUS
+accounts-pipeline-run-1-clone-run       clone       4 minutes ago    15s        Succeeded
+accounts-pipeline-run-1-lint-run        lint        4 minutes ago    22s        Succeeded
+accounts-pipeline-run-1-tests-run       tests       3 minutes ago    18s        Succeeded
+accounts-pipeline-run-1-build-run       build       3 minutes ago    47s        Succeeded
+accounts-pipeline-run-1-deploy-run      deploy      2 minutes ago    15s        Succeeded
