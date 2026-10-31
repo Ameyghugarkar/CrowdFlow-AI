@@ -1,0 +1,32 @@
+﻿$ curl -i -X GET http://localhost:5000/accounts
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 384
+Server: Werkzeug/3.1.9 Python/3.14.3
+Date: Sat, 31 Oct 2026 12:54:28 GMT
+
+[
+  {
+    "active": true,
+    "email": "john.doe@crowdflow.ai",
+    "id": 1,
+    "name": "John Doe",
+    "role": "admin"
+  },
+  {
+    "active": true,
+    "email": "jane.smith@crowdflow.ai",
+    "id": 2,
+    "name": "Jane Smith",
+    "role": "user"
+  },
+  {
+    "active": true,
+    "email": "bob.wilson@crowdflow.ai",
+    "id": 3,
+    "name": "Bob Wilson",
+    "role": "analyst"
+  }
+]
+
