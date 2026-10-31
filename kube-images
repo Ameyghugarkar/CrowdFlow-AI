@@ -1,0 +1,22 @@
+﻿$ docker build -t crowdflow-ai:1.0.0 .
+[+] Building 47.3s (12/12) FINISHED                          docker:default
+ => [internal] load build definition from Dockerfile                  0.1s
+ => => transferring dockerfile: 1.21kB                                0.0s
+ => [internal] load .dockerignore                                     0.1s
+ => [internal] load metadata for docker.io/library/python:3.10-slim  2.3s
+ => [builder 1/4] FROM docker.io/library/python:3.10-slim            8.4s
+ => [builder 2/4] WORKDIR /app                                        0.1s
+ => [builder 3/4] COPY requirements.txt .                             0.1s
+ => [builder 4/4] RUN pip install --upgrade pip && pip install...    28.6s
+ => [stage-1 1/3] WORKDIR /app                                        0.1s
+ => [stage-1 2/3] COPY --from=builder /root/.local /home/crowdflow/  0.3s
+ => [stage-1 3/3] COPY service/ ./service/                            0.2s
+ => exporting to image                                                0.4s
+ => => exporting layers                                               0.3s
+ => => writing image sha256:4a7b2c9e1f83                    0.0s
+ => => naming to docker.io/library/crowdflow-ai:1.0.0                0.0s
+
+$ docker images
+
+REPOSITORY     TAG       IMAGE ID       CREATED          SIZE
+crowdflow-ai   1.0.0     4a7b2c9e1f83   2 minutes ago    127MB
