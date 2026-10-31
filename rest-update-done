@@ -1,0 +1,16 @@
+﻿$ curl -i -X PUT http://localhost:5000/accounts/1 -H "Content-Type: application/json" -d '{"name": "John Doe", "email": "john.doe@crowdflow.ai", "role": "superadmin", "active": true}'
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 114
+Server: Werkzeug/3.1.9 Python/3.14.3
+Date: Sat, 31 Oct 2026 12:56:33 GMT
+
+{
+  "active": true,
+  "email": "john.doe@crowdflow.ai",
+  "id": 1,
+  "name": "John Doe",
+  "role": "superadmin"
+}
+
