@@ -1,0 +1,4 @@
+﻿$ curl http://localhost:8080/accounts
+
+[{"active":true,"email":"john.doe@crowdflow.ai","id":1,"name":"John Doe","role":"admin"},{"active":true,"email":"jane.smith@crowdflow.ai","id":2,"name":"Jane Smith","role":"analyst"},{"active":true,"email":"bob.wilson@crowdflow.ai","id":3,"name":"Bob Wilson","role":"user"}]
+
